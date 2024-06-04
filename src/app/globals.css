@@ -3,31 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary: 220 98% 61%;
+
+  --background: 0, 0%, 98%;
+  --foreground: 236 19% 35%;
+  --card: 0 0% 100%;
+  --card-hover: 233 11% 84%;
+  --card-foreground: 236 19% 35%;
+  --border: 233 11% 84%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.dark {
+  --background: 235 21% 11%;
+  --foreground: 237 14% 26%;
+  --card: 235 24% 19;
+  --card-foreground: 234 39% 85%;
+  --card-hover: 236 33% 92%;
+  --border: 237 14% 26%;
 }

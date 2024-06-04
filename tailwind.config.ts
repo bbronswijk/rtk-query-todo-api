@@ -1,17 +1,24 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  darkMode: 'selector',
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        primary: 'hsl(var(--primary))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        border: 'hsl(var(--border))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+          hover: 'hsl(var(--card-hover))',
+        },
+        check: {
+          start: 'hsl(192, 100%, 67%)',
+          end: 'hsl(280, 87%, 65%)',
+        },
       },
     },
   },
