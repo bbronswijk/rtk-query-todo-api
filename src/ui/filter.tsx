@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '@/utils/cn';
-
-export enum FilterType {
-  All = 'All',
-  Active = 'Active',
-  Completed = 'Completed',
-}
+import { FilterType } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSelectedFilter } from '@/store/selectors';
+import { setSelectedFilter } from '@/store/actions';
 
 interface ComponentProps {
   className: string;
 }
 
 const Filter = ({ className }: ComponentProps) => {
-  const [selectedFilter, setSelectedFilter] = useState<FilterType>(
-    FilterType.All
-  );
+  const dispatch = useDispatch();
+  const selectedFilter = useSelector(selectSelectedFilter);
+
   const filters = Object.values(FilterType);
 
   return (
@@ -23,10 +21,10 @@ const Filter = ({ className }: ComponentProps) => {
         <button
           key={filter}
           className={cn(
-            'text-card-foreground hover:text-card-hover text-bold',
+            'text-bold cursor-pointer text-card-foreground hover:text-primary',
             filter === selectedFilter && 'text-primary'
           )}
-          onClick={() => setSelectedFilter(filter)}
+          onClick={() => dispatch(setSelectedFilter(filter))}
         >
           {filter}
         </button>

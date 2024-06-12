@@ -1,43 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { Todo } from '@/models/todo';
+import { Todo } from '@/api/todo';
 import Checkbox from '@/ui/checkbox';
+import { useDispatch } from 'react-redux';
+import { deleteTodo, toggleTodo, updateTodo } from '@/store/actions';
+import { useDebounce } from '@/utils/debounce.hook';
 
 interface ComponentProps {
   todo: Todo;
 }
 
 const TodoRow = ({ todo }: ComponentProps) => {
-  const [checked, setChecked] = useState(todo.completed);
-  const [description, setDescription] = useState(todo.description);
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState<string | undefined>(todo.title);
+  const debouncedInputValue = useDebounce(title, 600);
 
   useEffect(() => {
-    setDescription(description);
-  }, [description]);
-
-  const onToggleCompleted = (completed: boolean) => {
-    setChecked(completed);
-  };
-
-  const deleteTodo = () => {};
+    if (debouncedInputValue && debouncedInputValue !== todo.title) {
+      dispatch(updateTodo({ id: todo.id, title: debouncedInputValue }));
+    }
+  }, [debouncedInputValue]);
 
   return (
-    <form className='border-border group relative flex border-b'>
+    <form className='group relative flex border-b border-border'>
       <input
         type='text'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className={`text-card-foreground w-full border-none bg-transparent py-5 pl-16 pr-6 focus:outline-none ${checked ? 'line-through opacity-25' : ''}`}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className={`w-full border-none bg-transparent py-5 pl-16 pr-6 text-card-foreground focus:outline-none ${todo.completed ? 'line-through opacity-25' : ''}`}
         placeholder='Describe todo...'
       />
       <Checkbox
-        checked={checked}
-        onChange={onToggleCompleted}
+        checked={todo.completed}
+        onChange={(completed) =>
+          dispatch(toggleTodo({ id: todo.id, completed }))
+        }
         className='absolute left-6 top-1/2 -translate-y-1/2'
       />
       <button
-        type='submit'
-        className='text-card-foreground hover:text-card-hover mr-6 opacity-0 duration-300 group-hover:opacity-100'
-        onClick={deleteTodo}
+        type='button'
+        className='mr-6 text-card-foreground opacity-0 duration-300 hover:text-card-hover group-hover:opacity-100'
+        onClick={() => dispatch(deleteTodo({ id: todo.id }))}
       >
         <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18'>
           <path

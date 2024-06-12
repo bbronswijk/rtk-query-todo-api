@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import TodoRow from '@/ui/todoRow';
-import { Todo } from '@/models/todo';
-import { TODO_MOCK } from '@/models/todo.mock';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTodos } from '@/store/actions';
+import {
+  selectFilteredTodos,
+  selectSelectedFilter,
+  selectTodos,
+} from '@/store/selectors';
+import { Todo } from '@/api/todo';
 
 const TodoList = () => {
-  const [todos] = useState<Todo[]>(TODO_MOCK);
+  const dispatch = useDispatch();
+  const selectedFilter = useSelector(selectSelectedFilter);
+  const todos: Todo[] = useSelector(selectTodos);
+  const filteredTodos = selectFilteredTodos(selectedFilter, todos);
 
   useEffect(() => {
-    //   // Assuming TodoState.filteredTodos is a function that returns a promise
-    //   TodoState.filteredTodos().then(setTodos);
+    dispatch(fetchTodos());
   }, []);
 
-  if (todos.length === 0) {
+  if (filteredTodos.length === 0) {
     return (
-      <div className='border-border border-b p-6 text-center'>
+      <div className='border-b border-border p-6 text-center'>
         Create a todo and start being productive! 🤓
       </div>
     );
@@ -21,7 +31,7 @@ const TodoList = () => {
 
   return (
     <div>
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <TodoRow key={todo.id} todo={todo} />
       ))}
     </div>

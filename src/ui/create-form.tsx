@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Checkbox from './checkbox';
+import { useDispatch } from 'react-redux';
+import { createTodo } from '@/store/actions';
 
 const CreateForm = () => {
+  const dispatch = useDispatch();
   const [completed, setCompleted] = useState(false);
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
 
-  const save = () => {
+  const save = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(createTodo({ completed, title }));
+    resetForm();
+  };
+
+  const resetForm = () => {
     setCompleted(false);
-    setDescription('');
+    setTitle('');
   };
 
   return (
     <form
       onSubmit={save}
-      className='bg-card text-card-foreground relative mb-8 flex rounded-lg shadow-lg md:rounded'
+      className='relative mb-8 flex rounded-lg bg-card text-card-foreground shadow-lg md:rounded'
     >
       <Checkbox
         checked={completed}
@@ -21,10 +30,10 @@ const CreateForm = () => {
         className='absolute left-6 top-1/2 -translate-y-1/2'
       />
       <input
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         type='text'
-        className='text-card-foreground w-full border-none bg-transparent py-5 pl-16 pr-6 focus:outline-none'
+        className='w-full border-none bg-transparent py-5 pl-16 pr-6 text-card-foreground focus:outline-none'
         placeholder='Create a new todo...'
       />
     </form>

@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
 import { Josefin_Sans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/utils/cn';
+import { Metadata } from 'next';
 
 const JosefineSans = Josefin_Sans({
   weight: ['400', '700'],
@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={cn(
           JosefineSans.className,
-          'bg-background text-foreground dark'
+          'dark bg-background text-foreground'
         )}
       >
         {children}
