@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@bbronswijk/kotlin-todo-api-client':
-    specifier: 1.0.4
-    version: 1.0.4
+    specifier: ^1.0.5
+    version: 1.0.5
   '@redux-devtools/extension':
     specifier: ^3.3.0
     version: 3.3.0(redux@5.0.1)
@@ -84,8 +84,8 @@ packages:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  /@bbronswijk/kotlin-todo-api-client@1.0.4:
-    resolution: {integrity: sha512-UgQiCY8tqbirDAuM5IctxAHbEAgCeo06DdAK6kZZw+3T3KXjkZ3LtLDxFlGMYxDB40xz0dFveJHxmWRTXgLtSQ==}
+  /@bbronswijk/kotlin-todo-api-client@1.0.5:
+    resolution: {integrity: sha512-189uIfEZZ1X3m1N1n1vJ1l7aWR/6nng6fQjBKebieTc9hjzzjmKtJw3vmiL2hMLeqoSzLAtfUN9bAcPZ04VxFg==}
     dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.57.0):
