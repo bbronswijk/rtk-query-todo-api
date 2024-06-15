@@ -9,7 +9,7 @@ import {
   selectSelectedFilter,
   selectTodos,
 } from '@/store/selectors';
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 
 const TodoList = () => {
   const dispatch = useDispatch();

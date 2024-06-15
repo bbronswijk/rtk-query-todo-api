@@ -1,4 +1,4 @@
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import { FilterType } from '@/store/store';
 
 export enum ActionType {

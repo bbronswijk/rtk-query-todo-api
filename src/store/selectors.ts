@@ -1,5 +1,5 @@
 import { FilterType, TodoState } from '@/store/store';
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 
 export const selectSelectedFilter = (state: TodoState): FilterType =>
   state.selectedFilter;

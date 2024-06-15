@@ -1,4 +1,4 @@
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from '@redux-devtools/extension';

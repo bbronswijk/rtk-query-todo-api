@@ -1,6 +1,6 @@
 import React from 'react';
 import Filter from '@/ui/filter';
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodos } from '@/store/selectors';
 import { clearCompleted } from '@/store/actions';

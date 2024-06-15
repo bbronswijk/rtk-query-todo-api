@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import Checkbox from '@/ui/checkbox';
 import { useDispatch } from 'react-redux';
 import { deleteTodo, toggleTodo, updateTodo } from '@/store/actions';

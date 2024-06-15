@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@bbronswijk/kotlin-todo-api-client':
+    specifier: 1.0.4
+    version: 1.0.4
   '@redux-devtools/extension':
     specifier: ^3.3.0
     version: 3.3.0(redux@5.0.1)
@@ -80,6 +83,10 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+
+  /@bbronswijk/kotlin-todo-api-client@1.0.4:
+    resolution: {integrity: sha512-UgQiCY8tqbirDAuM5IctxAHbEAgCeo06DdAK6kZZw+3T3KXjkZ3LtLDxFlGMYxDB40xz0dFveJHxmWRTXgLtSQ==}
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.57.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}

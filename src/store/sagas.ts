@@ -1,4 +1,4 @@
-import { Todo } from '@/api/todo';
+import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   deleteTodoApi,
@@ -42,7 +42,7 @@ function* updateTodoAction({ payload }: ReturnType<typeof updateTodo>) {
 }
 
 function* deleteTodoAction({ payload }: ReturnType<typeof deleteTodo>) {
-  const todo: Todo = yield call(deleteTodoApi, payload.id);
+  const todo: string = yield call(deleteTodoApi, payload.id as string); // TODO figure out in Kotlin how not to have the ID as optional.
   yield put({
     type: ActionType.DELETE_SUCCESS,
     payload: todo,
