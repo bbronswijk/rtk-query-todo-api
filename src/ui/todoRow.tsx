@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import Checkbox from '@/ui/checkbox';
 import { useDispatch } from 'react-redux';
-import { deleteTodo, toggleTodo, updateTodo } from '@/store/actions';
+import {
+  deleteTodoAction,
+  toggleTodoAction,
+  updateTodoAction,
+} from '@/store/actions';
 import { useDebounce } from '@/utils/debounce.hook';
 
 interface ComponentProps {
@@ -16,7 +20,7 @@ const TodoRow = ({ todo }: ComponentProps) => {
 
   useEffect(() => {
     if (debouncedInputValue && debouncedInputValue !== todo.title) {
-      dispatch(updateTodo({ id: todo.id, title: debouncedInputValue }));
+      dispatch(updateTodoAction({ id: todo.id, title: debouncedInputValue }));
     }
   }, [debouncedInputValue]);
 
@@ -32,14 +36,14 @@ const TodoRow = ({ todo }: ComponentProps) => {
       <Checkbox
         checked={todo.completed}
         onChange={(completed) =>
-          dispatch(toggleTodo({ id: todo.id, completed }))
+          dispatch(toggleTodoAction({ id: todo.id, completed }))
         }
         className='absolute left-6 top-1/2 -translate-y-1/2'
       />
       <button
         type='button'
         className='mr-6 text-card-foreground opacity-0 duration-300 hover:text-card-hover group-hover:opacity-100'
-        onClick={() => dispatch(deleteTodo({ id: todo.id }))}
+        onClick={() => dispatch(deleteTodoAction({ id: todo.id }))}
       >
         <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18'>
           <path

@@ -3,7 +3,7 @@ import { cn } from '@/utils/cn';
 import { FilterType } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSelectedFilter } from '@/store/selectors';
-import { setSelectedFilter } from '@/store/actions';
+import { setSelectedFilterAction } from '@/store/actions';
 
 interface ComponentProps {
   className: string;
@@ -24,7 +24,7 @@ const Filter = ({ className }: ComponentProps) => {
             'text-bold cursor-pointer text-card-foreground hover:text-primary',
             filter === selectedFilter && 'text-primary'
           )}
-          onClick={() => dispatch(setSelectedFilter(filter))}
+          onClick={() => dispatch(setSelectedFilterAction(filter))}
         >
           {filter}
         </button>

@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import TodoRow from '@/ui/todoRow';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTodos } from '@/store/actions';
+import { fetchTodosAction } from '@/store/actions';
 import {
   selectFilteredTodos,
   selectSelectedFilter,
@@ -18,7 +18,7 @@ const TodoList = () => {
   const filteredTodos = selectFilteredTodos(selectedFilter, todos);
 
   useEffect(() => {
-    dispatch(fetchTodos());
+    dispatch(fetchTodosAction());
   }, []);
 
   if (filteredTodos.length === 0) {

@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import Checkbox from './checkbox';
 import { useDispatch } from 'react-redux';
-import { createTodo } from '@/store/actions';
+import { createTodoAction } from '@/store/actions';
 
 const CreateForm = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const CreateForm = () => {
 
   const save = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createTodo({ completed, title }));
+    dispatch(createTodoAction({ completed, title }));
     resetForm();
   };
 

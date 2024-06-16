@@ -3,7 +3,7 @@ import Filter from '@/ui/filter';
 import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodos } from '@/store/selectors';
-import { clearCompleted } from '@/store/actions';
+import { clearCompletedAction } from '@/store/actions';
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Footer = () => {
       <div className='text-right'>
         <button
           className='text-card-foreground hover:text-card-hover'
-          onClick={() => dispatch(clearCompleted(completedIds))}
+          onClick={() => dispatch(clearCompletedAction(completedIds))}
         >
           Clear Completed
         </button>

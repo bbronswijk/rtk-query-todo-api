@@ -1,5 +1,8 @@
-import { Todo } from '@bbronswijk/kotlin-todo-api-client';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import {
+  DeleteManyTodosRequest,
+  Todo,
+} from '@bbronswijk/kotlin-todo-api-client';
+import { call, put } from 'redux-saga/effects';
 import {
   deleteTodoApi,
   deleteTodosApi,
@@ -9,67 +12,58 @@ import {
   toggleTodoApi,
 } from '@/api/api';
 import {
-  ActionType,
-  clearCompleted,
-  createTodo,
-  deleteTodo,
-  toggleTodo,
-  updateTodo,
+  clearCompletedAction,
+  clearCompletedSuccessAction,
+  createTodoAction,
+  createTodoSuccessAction,
+  deleteTodoAction,
+  deleteTodoSuccessAction,
+  fetchTodosSuccessAction,
+  toggleTodoAction,
+  toggleTodoSuccessAction,
+  updateTodoAction,
+  updateTodoSuccessAction,
 } from '@/store/actions';
 
-function* fetchTodosAction() {
+export function* fetchTodosSaga() {
   const todos: Todo[] = yield call(getTodosApi);
-  yield put({
-    type: ActionType.FETCH_SUCCESS,
-    payload: todos.slice(0, 10),
-  });
+  yield put(fetchTodosSuccessAction(todos));
 }
 
-function* createTodoAction({ payload }: ReturnType<typeof createTodo>) {
+export function* createTodoSaga({
+  payload,
+}: ReturnType<typeof createTodoAction>) {
   const todo: Todo = yield call(postTodoApi, payload);
-  yield put({
-    type: ActionType.CREATE_SUCCESS,
-    payload: todo,
-  });
+  yield put(createTodoSuccessAction(todo));
 }
 
-function* updateTodoAction({ payload }: ReturnType<typeof updateTodo>) {
+export function* updateTodoSaga({
+  payload,
+}: ReturnType<typeof updateTodoAction>) {
   const todo: Todo = yield call(patchTodoApi, payload);
-  yield put({
-    type: ActionType.UPDATE_SUCCESS,
-    payload: todo,
-  });
+  yield put(updateTodoSuccessAction(todo));
 }
 
-function* deleteTodoAction({ payload }: ReturnType<typeof deleteTodo>) {
-  const todo: string = yield call(deleteTodoApi, payload.id as string); // TODO figure out in Kotlin how not to have the ID as optional.
-  yield put({
-    type: ActionType.DELETE_SUCCESS,
-    payload: todo,
-  });
+export function* deleteTodoSaga({
+  payload,
+}: ReturnType<typeof deleteTodoAction>) {
+  const todoId: string = yield call(deleteTodoApi, payload.id);
+  yield put(deleteTodoSuccessAction(todoId));
 }
 
-function* toggleTodoAction({ payload }: ReturnType<typeof toggleTodo>) {
+export function* toggleTodoSaga({
+  payload,
+}: ReturnType<typeof toggleTodoAction>) {
   const todo: Todo = yield call(toggleTodoApi, payload);
-  yield put({
-    type: ActionType.TOGGLE_SUCCESS,
-    payload: todo,
-  });
+  yield put(toggleTodoSuccessAction(todo));
 }
 
-function* clearCompletedAction({ payload }: ReturnType<typeof clearCompleted>) {
-  const todo: Todo = yield call(deleteTodosApi, payload);
-  yield put({
-    type: ActionType.CLEAR_COMPLETED_SUCCESS,
-    payload: todo,
-  });
-}
-
-export function* rootSaga() {
-  yield takeEvery(ActionType.FETCH, fetchTodosAction);
-  yield takeEvery(ActionType.CREATE, createTodoAction);
-  yield takeEvery(ActionType.UPDATE, updateTodoAction);
-  yield takeEvery(ActionType.DELETE, deleteTodoAction);
-  yield takeEvery(ActionType.TOGGLE, toggleTodoAction);
-  yield takeEvery(ActionType.CLEAR_COMPLETED, clearCompletedAction);
+export function* clearCompletedSaga({
+  payload,
+}: ReturnType<typeof clearCompletedAction>) {
+  const deletedIds: DeleteManyTodosRequest['deleteIds'] = yield call(
+    deleteTodosApi,
+    payload
+  );
+  yield put(clearCompletedSuccessAction(deletedIds));
 }
