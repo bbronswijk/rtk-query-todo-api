@@ -1,9 +1,6 @@
-import { FilterType, TodoState } from '@/store/store';
 import { Todo } from '@bbronswijk/kotlin-todo-api-client';
+import { FilterType } from '@/store/filter.state';
 
-export const selectSelectedFilter = (state: TodoState): FilterType =>
-  state.selectedFilter;
-export const selectTodos = (state: TodoState): Todo[] => state.todos;
 export const selectFilteredTodos = (
   selectedFilter: FilterType,
   todos: Todo[]

@@ -1,27 +1,27 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import TodoRow from '@/ui/todoRow';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTodosAction } from '@/store/actions';
-import {
-  selectFilteredTodos,
-  selectSelectedFilter,
-  selectTodos,
-} from '@/store/selectors';
+import { useGetTodosQuery } from '@/store/api';
+import { useAppSelector } from '@/store/store';
+import { selectSelectedFilter } from '@/store/filter.state';
+import { selectFilteredTodos } from '@/store/selectFilteredTodos';
 import { Todo } from '@bbronswijk/kotlin-todo-api-client';
 
 const TodoList = () => {
-  const dispatch = useDispatch();
-  const selectedFilter = useSelector(selectSelectedFilter);
-  const todos: Todo[] = useSelector(selectTodos);
-  const filteredTodos = selectFilteredTodos(selectedFilter, todos);
+  const { data: todos, isLoading } = useGetTodosQuery();
+  const selectedFilter = useAppSelector(selectSelectedFilter);
 
-  useEffect(() => {
-    dispatch(fetchTodosAction());
-  }, []);
+  if (isLoading) {
+    return (
+      <div className='border-b border-border p-6 text-center'>
+        Fetching todos 🤓
+      </div>
+    );
+  }
 
-  if (filteredTodos.length === 0) {
+  const filteredTodos = selectFilteredTodos(selectedFilter, todos as Todo[]);
+
+  if (!filteredTodos || filteredTodos.length === 0) {
     return (
       <div className='border-b border-border p-6 text-center'>
         Create a todo and start being productive! 🤓

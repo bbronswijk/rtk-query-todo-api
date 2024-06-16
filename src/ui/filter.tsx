@@ -1,18 +1,19 @@
 import React from 'react';
 import { cn } from '@/utils/cn';
-import { FilterType } from '@/store/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectSelectedFilter } from '@/store/selectors';
-import { setSelectedFilterAction } from '@/store/actions';
+import {
+  FilterType,
+  selectSelectedFilter,
+  setFilter,
+} from '@/store/filter.state';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 
 interface ComponentProps {
   className: string;
 }
 
 const Filter = ({ className }: ComponentProps) => {
-  const dispatch = useDispatch();
-  const selectedFilter = useSelector(selectSelectedFilter);
-
+  const dispatch = useAppDispatch();
+  const selectedFilter = useAppSelector(selectSelectedFilter);
   const filters = Object.values(FilterType);
 
   return (
@@ -24,7 +25,7 @@ const Filter = ({ className }: ComponentProps) => {
             'text-bold cursor-pointer text-card-foreground hover:text-primary',
             filter === selectedFilter && 'text-primary'
           )}
-          onClick={() => dispatch(setSelectedFilterAction(filter))}
+          onClick={() => dispatch(setFilter(filter))}
         >
           {filter}
         </button>

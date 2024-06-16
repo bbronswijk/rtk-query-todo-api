@@ -1,16 +1,15 @@
 import { FormEvent, useState } from 'react';
 import Checkbox from './checkbox';
-import { useDispatch } from 'react-redux';
-import { createTodoAction } from '@/store/actions';
+import { useCreateTodoMutation } from '@/store/api';
 
 const CreateForm = () => {
-  const dispatch = useDispatch();
+  const [createTodoAction] = useCreateTodoMutation();
   const [completed, setCompleted] = useState(false);
   const [title, setTitle] = useState('');
 
   const save = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createTodoAction({ completed, title }));
+    createTodoAction({ completed, title });
     resetForm();
   };
 
